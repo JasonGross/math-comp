@@ -2266,7 +2266,7 @@ let interp_index ist gl idx =
         | Some c ->
           let rc = Detyping.detype false [] (pf_env gl) (project gl) c in
           begin match Notation.uninterp_prim_token rc with
-          | _, Numeral bigi -> int_of_string (Bigint.to_string bigi)
+          | _, Numeral (n,ispos) -> let n' = int_of_string n in if ispos then n' else -n'
           | _ -> raise Not_found
           end
         | None -> raise Not_found
